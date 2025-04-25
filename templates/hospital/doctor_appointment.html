@@ -1,0 +1,120 @@
+{% extends 'hospital/doctor_base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-blue: #4361ee;
+      --secondary-blue: #3f37c9;
+      --primary-green: #2ecc71;
+      --secondary-green: #27ae60;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease-in-out;
+    }
+    
+    .dashboard-card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      height: 100%;
+      color: white;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .appointments-card {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    }
+    
+    .delete-card {
+      background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    }
+    
+    .card-icon {
+      font-size: 2.5rem;
+      opacity: 0.2;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+    
+    .card-body {
+      padding: 2rem;
+      position: relative;
+    }
+    
+    .card-link {
+      color: white;
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .card-text {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<div class="container py-5">
+  <div class="row g-4">
+    <!-- View Appointments Card -->
+    <div class="col-md-6 col-lg-6">
+      <div class="dashboard-card appointments-card">
+        <a href="/doctor-view-appointment" class="card-link">
+          <div class="card-body">
+            <i class="fas fa-calendar-check card-icon"></i>
+            <h3 class="card-title">Check Appointments </h3>
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="card-text mb-0">check on all your upcoming patient appointments</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Delete Appointments Card -->
+    <div class="col-md-6 col-lg-6">
+      <div class="dashboard-card delete-card">
+        <a href="/doctor-delete-appointment" class="card-link">
+          <div class="card-body">
+            <i class="fas fa-trash-alt card-icon"></i>
+            <h3 class="card-title">Manage Appointments</h3>
+            <div class="d-flex align-items-center">
+              <div>
+                <p class="card-text mb-0">Cancel or reschedule patient appointments</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock content %}

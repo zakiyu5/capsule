@@ -1,0 +1,135 @@
+{% extends 'hospital/homebase.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+  <style>
+    :root {
+      --primary-blue: #4361ee;
+      --secondary-blue: #3a0ca3;
+      --accent-teal: #4cc9f0;
+    }
+    
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static "images/bg.jpg" %}');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      padding: 2rem;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--accent-teal), white);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+    }
+    
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-hero {
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      min-width: 220px;
+      text-align: center;
+    }
+    
+    .btn-diagnosis {
+      background: var(--accent-teal);
+      color: var(--primary-blue);
+      border: 2px solid var(--accent-teal);
+    }
+    
+    .btn-diagnosis:hover {
+      background: transparent;
+      color: var(--accent-teal);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .btn-appointment {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-appointment:hover {
+      background: white;
+      color: var(--primary-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .btn-hero {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Precision Healthcare at Your Fingertips</h1>
+    <p class="hero-subtitle">AI-powered medical solutions combined with compassionate care</p>
+    
+    <div class="action-buttons">
+      <a href="http://127.0.0.1:5000/" class="btn btn-hero btn-diagnosis">
+        <i class="fas fa-robot me-2"></i>AI Diagnosis
+      </a>
+      <a href="/patientclick" class="btn btn-hero btn-appointment">
+        <i class="fas fa-calendar-check me-2"></i>Book Appointment
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Cards Section -->
+{% include "hospital/admin_doctor_patient_card.html" %}
+
+{% endblock content %}

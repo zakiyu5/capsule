@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-blue: #4361ee;
+      --secondary-blue: #3a0ca3;
+      --primary-green: #2ecc71;
+      --secondary-green: #27ae60;
+      --primary-orange: #e67e22;
+      --secondary-orange: #d35400;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .dashboard-container {
+      padding: 2rem;
+    }
+    
+    .stats-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      height: 100%;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .stats-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      z-index: -1;
+      transition: all 0.6s ease;
+    }
+    
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stats-card:hover::before {
+      left: 100%;
+    }
+    
+    .appointments-card {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    }
+    
+    .patients-card {
+      background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    }
+    
+    .discharged-card {
+      background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+    }
+    
+    .card-icon {
+      font-size: 3rem;
+      opacity: 0.2;
+      position: absolute;
+      right: 30px;
+      top: 30px;
+    }
+    
+    .card-body {
+      padding: 2rem;
+      position: relative;
+    }
+    
+    .card-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-description {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .motivation-section {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-top: 2rem;
+    }
+    
+    .motivation-quote {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #555;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .motivation-quote::before {
+      content: '"';
+      font-size: 3rem;
+      position: absolute;
+      left: -0.5rem;
+      top: -1rem;
+      color: rgba(67, 97, 238, 0.2);
+    }
+    
+    .motivation-author {
+      font-weight: 600;
+      color: var(--primary-blue);
+      text-align: right;
+    }
+    
+    @media (max-width: 768px) {
+      .card-value {
+        font-size: 2rem;
+      }
+      
+      .card-icon {
+        font-size: 2.5rem;
+        right: 20px;
+        top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <div class="row g-4">
+      <!-- Appointments Card -->
+      <div class="col-md-4">
+        <div class="stats-card appointments-card">
+          <div class="card-body">
+            <i class="fas fa-calendar-check card-icon"></i>
+            <div class="card-value">{{appointmentcount}}</div>
+            <h3 class="card-title">Appointments</h3>
+            <p class="card-description">Scheduled appointments for you today</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Patients Card -->
+      <div class="col-md-4">
+        <div class="stats-card patients-card">
+          <div class="card-body">
+            <i class="fas fa-user-injured card-icon"></i>
+            <div class="card-value">{{patientcount}}</div>
+            <h3 class="card-title">Patients Under Care</h3>
+            <p class="card-description">Patients currently under your supervision</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Discharged Card -->
+      <div class="col-md-4">
+        <div class="stats-card discharged-card">
+          <div class="card-body">
+            <i class="fas fa-check-circle card-icon"></i>
+            <div class="card-value">{{patientdischarged}}</div>
+            <h3 class="card-title">Patients Discharged</h3>
+            <p class="card-description">Successfully treated and discharged</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Motivation Section -->
+    <div class="motivation-section">
+      <h4 class="text-center mb-4">Daily Inspiration</h4>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <p class="motivation-quote">
+            The good physician treats the disease; the great physician treats the patient who has the disease.
+          </p>
+          <p class="motivation-author">- William Osler</p>
+        </div>
+        
+        <div class="col-md-6">
+          <p class="motivation-quote">
+            Wherever the art of medicine is loved, there is also a love of humanity.
+          </p>
+          <p class="motivation-author">- Hippocrates</p>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <p class="motivation-quote">
+            Medicine is not only a science; it is also an art. It does not consist of compounding pills and plasters; it deals with the very processes of life.
+          </p>
+          <p class="motivation-author">- Paracelsus</p>
+        </div>
+        
+        <div class="col-md-6">
+          <p class="motivation-quote">
+            The physician's highest calling, his only calling, is to make sick people healthy - to heal, as it is termed.
+          </p>
+          <p class="motivation-author">- Samuel Hahnemann</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

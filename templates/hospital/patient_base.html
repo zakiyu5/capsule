@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capsule Patient Portal</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #337AB7;
+      --secondary-color: #5bc995;
+      --accent-color: #ffea92;
+      --dark-color: #2c3e50;
+      --light-color: #f8f9fa;
+    }
+    
+    body {
+      padding-left: 240px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    main {
+      flex: 1;
+      position: relative;
+    }
+
+    /* Sidebar Styles */
+    .menu {
+      background: var(--dark-color);
+      height: 100vh;
+      width: 240px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1050;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .menu .avatar {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2em 0.5em;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .menu .avatar img {
+      width: 100px;
+      border-radius: 50%;
+      border: 4px solid var(--accent-color);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    .menu .avatar h2 {
+      font-weight: 600;
+      margin: 10px 0 0;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .menu .avatar h6 {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 1em 0;
+      margin: 0;
+    }
+
+    .menu ul li {
+      padding: 0.8em 1em 0.8em 3em;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: auto 20px;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      color: rgba(255,255,255,0.8);
+      position: relative;
+      border-left: 3px solid transparent;
+    }
+
+    .menu ul li:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .menu ul li.active {
+      background-color: rgba(255,255,255,0.15);
+      border-left: 3px solid var(--accent-color);
+      color: white;
+    }
+
+    .menu ul li a {
+      display: flex;
+      align-items: center;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .menu ul li i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background: var(--primary-color) !important;
+      padding: 0.75rem 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    /* Content Area */
+    .content-wrapper {
+      padding: 30px;
+      margin-top: 70px;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark-color);
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      body {
+        padding-left: 80px;
+      }
+      .menu {
+        width: 80px;
+      }
+      .menu .avatar {
+        padding: 1em 0.5em;
+      }
+      .menu .avatar img {
+        width: 50px;
+      }
+      .menu .avatar h2,
+      .menu .avatar h6 {
+        display: none;
+      }
+      .menu ul li {
+        padding: 1em 0;
+        text-align: center;
+      }
+      .menu ul li span {
+        display: none;
+      }
+      .menu ul li i {
+        margin-right: 0;
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-left: 0;
+      }
+      .menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 250px;
+      }
+      .menu.active {
+        transform: translateX(0);
+      }
+      .navbar {
+        padding-left: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <nav class="menu" id="sidebar">
+    <header class="avatar">
+      <img src="{% static patient.profile_pic.url %}" alt="Profile Pic" />
+      <h6>Patient Portal</h6>
+      <h2>{{request.user.first_name}} {{request.user.last_name}}</h2>
+    </header>
+    <ul>
+      <li class="{% if request.path == '/patient-dashboard' %}active{% endif %}">
+        <a href="/patient-dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="{% if request.path == '/patient-appointment' %}active{% endif %}">
+        <a href="/patient-appointment">
+          <i class="fas fa-calendar-check"></i>
+          <span>Appointments</span>
+        </a>
+      </li>
+      <li class="{% if request.path == '/patient-view-doctor' %}active{% endif %}">
+        <a href="/patient-view-doctor">
+          <i class="fas fa-user-md"></i>
+          <span>Doctors</span>
+        </a>
+      </li>
+      <li class="{% if request.path == '/patient-discharge' %}active{% endif %}">
+        <a href="/patient-discharge">
+          <i class="fas fa-file-medical"></i>
+          <span>Medical Records</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid">
+        <button class="navbar-toggler me-2" type="button" id="mobile-menu-button">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/patient-dashboard">
+          <i class="fas fa-hospital me-2"></i>MediCare Hospital
+        </a>
+        <div class="d-flex align-items-center">
+          <span class="text-white me-3 d-none d-md-inline">Welcome, {{request.user.first_name}}</span>
+          <a href="/logout" class="btn btn-outline-light btn-sm">
+            <i class="fas fa-sign-out-alt me-1"></i>Logout
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto">
+      <div class="container">
+        <div class="footer-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+          <a href="/contact">Contact Support</a>
+        </div>
+        <div>
+          <p class="mb-0">MediCare Patient  Management System &copy; 2025</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Bootstrap 5 JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    // Mobile menu toggle
+    $(document).ready(function() {
+      $('#mobile-menu-button').click(function() {
+        $('#sidebar').toggleClass('active');
+      });
+      
+      // Close menu when clicking outside on mobile
+      $(document).click(function(e) {
+        if ($(window).width() <= 768) {
+          if (!$(e.target).closest('#sidebar').length && !$(e.target).closest('#mobile-menu-button').length) {
+            $('#sidebar').removeClass('active');
+          }
+        }
+      });
+
+      // Add active class based on current page
+      const currentPath = window.location.pathname;
+      $('.menu li').removeClass('active');
+      $(`.menu li a[href="${currentPath}"]`).parent().addClass('active');
+    });
+  </script>
+</body>
+</html>

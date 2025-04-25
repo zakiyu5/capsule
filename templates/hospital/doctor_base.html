@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Capsule Medical - Doctor Portal</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-blue: #4361ee;
+      --secondary-blue: #3a0ca3;
+      --accent-color: #4ecdc4;
+    }
+    
+    body {
+      padding-left: 240px;
+      background-color: #f8f9fa;
+    }
+    
+    main {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .menu {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      height: 100vh;
+      width: 240px;
+      position: fixed;
+      top: 0px;
+      left: 0;
+      z-index: 5;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .menu-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .menu .avatar {
+      padding: 2em 0.5em;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .menu .avatar img {
+      width: 100px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.2);
+    }
+    
+    .menu h2, .menu h6 {
+      color: white;
+    }
+    
+    .menu ul {
+      list-style: none;
+      padding: 0.5em 0;
+      margin: 0;
+    }
+    
+    .menu ul li {
+      padding: 1em 1em 1em 3em;
+      color: white;
+      font-size: 0.95em;
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: auto 20px;
+      transition: all 0.15s linear;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .menu ul li:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .menu ul li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+    }
+    
+    /* Motivation Section */
+    .motivation-section {
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      margin: 1rem;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-color);
+    }
+    
+    .motivation-text {
+      color: white;
+      font-style: italic;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+    
+    .motivation-author {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.8rem;
+      text-align: right;
+    }
+    
+    /* Navbar Styles */
+    .main-navbar {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-brand {
+      font-weight: 600;
+    }
+    
+    /* Footer Styles */
+    .footer-navigation {
+      background-color: white;
+      border-top: 1px solid #e9ecef;
+      padding: 1.5rem 0;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .footer-link {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: var(--secondary-blue);
+      background-color: rgba(67, 97, 238, 0.1);
+    }
+    
+    .copyright-text {
+      color: #6c757d;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      body {
+        padding-left: 0;
+      }
+      
+      .menu {
+        transform: translateX(-240px);
+        transition: transform 0.3s ease;
+      }
+      
+      .menu.active {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar Menu -->
+  <nav class="menu">
+    <div class="menu-content">
+      <div class="avatar">
+        <img src="{% static doctor.profile_pic.url %}" alt="Profile Pic" />
+        <h6>Doctor</h6>
+        <h2>{{request.user.first_name}}</h2>
+      </div>
+      <ul>
+        <li><a href="/doctor-dashboard"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
+        <li><a href="/doctor-patient"><i class="fas fa-user-injured me-2"></i> Patients</a></li>
+        <li><a href="/doctor-appointment"><i class="fas fa-calendar-check me-2"></i> Appointments</a></li>
+      </ul>
+      
+      <!-- Motivation Section -->
+      <div class="motivation-section">
+        <p class="motivation-text">
+          "The art of medicine consists of amusing the patient while nature cures the disease."
+        </p>
+        <p class="motivation-author">- Voltaire</p>
+        
+        <p class="motivation-text mt-3">
+          "Wherever the art of medicine is loved, there is also a love of humanity."
+        </p>
+        <p class="motivation-author">- Hippocrates</p>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark main-navbar">
+      <div class="container-fluid">
+        <a href="/doctor-dashboard" class="navbar-brand">CAPSULE MEDICAL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto">
+            <a href="/logout" class="nav-link"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="container py-4">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-navigation">
+      <div class="container">
+        <div class="footer-links">
+          <a href="/" class="footer-link">
+            <i class="fas fa-home me-1"></i> Home
+          </a>
+          <a href="/predict" class="footer-link">
+            <i class="fas fa-robot me-1"></i> AI Diagnosis
+          </a>
+          <a href="/dashboard" class="footer-link">
+            <i class="fas fa-clipboard-list me-1"></i> Patient Portal
+          </a>
+          <a href="/contactus" class="footer-link">
+            <i class="fas fa-envelope me-1"></i> Contact
+          </a>
+        </div>
+        <div class="copyright-text text-center">
+          &copy; {% now "Y" %} Capsule Medical. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Mobile Menu Toggle -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menu = document.querySelector('.menu');
+      const navbarToggler = document.querySelector('.navbar-toggler');
+      
+      navbarToggler.addEventListener('click', function() {
+        menu.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

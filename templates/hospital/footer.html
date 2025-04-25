@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapsAI - Footer</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-blue: #4361ee;
+      --secondary-blue: #3a0ca3;
+      --accent-teal: #4cc9f0;
+      --text-light: #ffffff;
+      --text-muted: rgba(255,255,255,0.7);
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      color: var(--text-light);
+      padding: 3rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .brand-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .brand-logo span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(to right, var(--accent-teal), #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .brand-logo .tagline {
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+    
+    .feature-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .feature-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-teal);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .feature-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    
+    .feature-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .feature-btn:hover {
+      background: var(--accent-teal);
+      color: var(--primary-blue);
+      transform: translateY(-2px);
+    }
+    
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .footer-nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      padding: 0.5rem;
+    }
+    
+    .footer-nav a:hover {
+      color: var(--accent-teal);
+      transform: translateY(-2px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    @media (max-width: 768px) {
+      .feature-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-nav {
+        gap: 1rem;
+      }
+      
+      .brand-logo span {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <footer>
+    <div class="footer-container">
+      <!-- Branding -->
+      <div class="brand-logo">
+        <span>CapsAI</span>
+        <div class="tagline">Intelligent Healthcare Solutions</div>
+      </div>
+      
+      <!-- Feature Cards -->
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI Medical Diagnosis</h3>
+          <p>Our advanced algorithms analyze symptoms with 94% accuracy to suggest possible conditions.</p>
+          <a href="http://127.0.0.1:5000/" class="feature-btn">
+            Try Diagnosis <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Developer AI</h3>
+          <p>Explore our API and integration tools to build healthcare solutions powered by CapsAI.</p>
+          <a href="/api" class="feature-btn">
+            Developer Portal <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure by Design</h3>
+          <p>End-to-end encrypted HIPAA compliant data pipelines with blockchain audit trails.</p>
+          <a href="/privacy" class="feature-btn">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Navigation Links -->
+      <nav class="footer-nav">
+        <a href="/blog">Blog & Research</a>
+        <a href="/contactus">Contact Team</a>
+        <a href="/aboutus">About Our Technology</a>
+        <a href="/dashboard">Patient Portal</a>
+        <a href="/doctor-dashboard">Doctor Portal</a>
+      </nav>
+      
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>&copy; {% now "Y" %} Capsule Medical Systems. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

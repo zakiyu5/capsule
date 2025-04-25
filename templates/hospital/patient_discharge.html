@@ -1,0 +1,275 @@
+{% extends 'hospital/patient_base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Discharge | MediCare Hospital</title>
+
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #4ecdc4;
+      --text-color: #333;
+      --light-gray: #f5f7fa;
+      --border-color: #e1e5eb;
+    }
+
+    .invoice-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .invoice-header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .hospital-title {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .invoice-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .patient-info, .doctor-info {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.3rem;
+    }
+
+    .info-value {
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      background-color: var(--light-gray);
+      padding: 0.8rem 1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      border-radius: 5px;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    .invoice-table th {
+      text-align: left;
+      padding: 1rem;
+      background-color: var(--light-gray);
+      color: var(--primary-color);
+    }
+
+    .invoice-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .invoice-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .total-row {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+    }
+
+    .download-btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-align: center;
+      margin: 2rem auto;
+      border: none;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .treatment-status {
+      text-align: center;
+      padding: 2rem;
+      background-color: #fff8e1;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 2rem auto;
+      border-left: 5px solid #ffc107;
+    }
+
+    .treatment-status h5 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .treatment-status h6 {
+      color: #666;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .invoice-meta {
+        flex-direction: column;
+      }
+      
+      .invoice-table th, 
+      .invoice-table td {
+        padding: 0.8rem 0.5rem;
+      }
+      
+      .hospital-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .invoice-container, .invoice-container * {
+        visibility: visible;
+      }
+      .invoice-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+      }
+      .download-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<div class="invoice-container">
+  {% if is_discharged %}
+    <div class="invoice-header">
+      <h1 class="hospital-title">MediCare Hospital</h1>
+      <div class="invoice-meta">
+        <div>
+          <div class="info-label">Admit Date</div>
+          <div class="info-value">{{ admitDate }}</div>
+          
+          <div class="info-label">Release Date</div>
+          <div class="info-value">{{ releaseDate }}</div>
+          
+          <div class="info-label">Days Spent</div>
+          <div class="info-value">{{ daySpent }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="patient-details">
+      <div class="invoice-meta">
+        <div class="patient-info">
+          <div class="section-title">Patient Information</div>
+          <div class="info-label">Full Name</div>
+          <div class="info-value">{{ patientName }}</div>
+          
+          <div class="info-label">Mobile</div>
+          <div class="info-value">{{ mobile }}</div>
+          
+          <div class="info-label">Address</div>
+          <div class="info-value">{{ address }}</div>
+        </div>
+
+        <div class="doctor-info">
+          <div class="section-title">Attending Physician</div>
+          <div class="info-label">Doctor Name</div>
+          <div class="info-value">{{ assignedDoctorName }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="medical-info">
+      <div class="section-title">Diagnosis & Symptoms</div>
+      <p>{{ symptoms }}</p>
+    </div>
+
+    <div class="billing-details">
+      <div class="section-title">Billing Summary</div>
+      <table class="invoice-table">
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>Room Charge ({{ daySpent }} days)</td>
+          <td>{{ roomCharge }}</td>
+        </tr>
+        <tr>
+          <td>Doctor's Fee</td>
+          <td>{{ doctorFee }}</td>
+        </tr>
+        <tr>
+          <td>Medicine Cost</td>
+          <td>{{ medicineCost }}</td>
+        </tr>
+        <tr>
+          <td>Other Charges</td>
+          <td>{{ OtherCharge }}</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total Amount</td>
+          <td>{{ total }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="text-center">
+      <a href="{% url 'download-pdf' patientId %}" class="download-btn">
+        <i class="fas fa-download"></i> Download Discharge Summary
+      </a>
+    </div>
+
+  {% else %}
+    <div class="treatment-status">
+      <h5>Your Treatment Is Currently Ongoing</h5>
+      <h5>You Have Not Been Discharged Yet</h5>
+      <br>
+      <h6>Your discharge invoice will be available for download once your treatment is complete.</h6>
+      <h6>Please check back later or contact the hospital administration for more information.</h6>
+    </div>
+  {% endif %}
+</div>
+
+<br><br>
+{% endblock content %}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us - Capsule Medical</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    
+    .about-header {
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .about-header:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+    }
+    
+    .feature-box {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--accent);
+    }
+    
+    .nav-pill {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50px;
+      font-weight: 500;
+      margin: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .nav-pill:hover {
+      background: var(--secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+      color: white;
+    }
+    
+    .team-member {
+      font-weight: 500;
+      color: var(--primary);
+    }
+    
+    /* Clear header space for Capsule */
+    .content-container {
+      margin-top: 20px;
+    }
+    
+    .capsule-header {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  {% include "hospital/navbar.html" %}
+
+  <div class="container content-container">
+    <!-- Clear Capsule header -->
+    <div class="capsule-header">Capsule Medical</div>
+    
+    <h1 class="about-header">About Us</h1>
+
+    <div class="feature-box">
+      <p>Welcome to <strong>Capsule Medical Health Center</strong>, where health meets technology for a brighter, healthier future.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Who We Are</h3>
+      <p>We are a team of <strong>BSc (Hons) Computer Science</strong> students from <strong>Lovely Professional University, School of Computer Applications, Section D2206</strong>.</p>
+      <p>Our team members: <span class="team-member">Muhamad Ishan</span>, <span class="team-member">Ibn Umar</span>, and <span class="team-member">Ssentongo Zakiyu</span></p>
+      <p>Under the supervision of <strong>Dr. Komal</strong> on our capstone project: <strong>Patient Management System</strong> using <strong>Machine Learning, Python, and Flask</strong>.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Our Vision</h3>
+      <p>We envision a world where access to healthcare information is not just a luxury but a fundamental right. Our journey began with a simple yet powerful idea: to empower individuals with the knowledge and tools they need to take control of their health.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Our Mission</h3>
+      <p>Our goal is to provide a seamless and intuitive platform that leverages the power of artificial intelligence and machine learning. Our system helps identify potential health concerns based on reported symptoms while offering a wealth of educational resources to enhance health literacy.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Our Systems</h3>
+      <p>We've developed two powerful platforms to serve your healthcare needs:</p>
+      <div class="text-center my-3">
+        <a href="/predict" class="nav-pill">
+          <i class="fas fa-robot me-2"></i>CapsAI - ML Diagnosis System
+        </a>
+        <a href="/dashboard" class="nav-pill">
+          <i class="fas fa-clipboard-list me-2"></i>Capsule - Patient Management
+        </a>
+      </div>
+    </div>
+
+    <div class="feature-box">
+      <h3>How We Do It</h3>
+      <p>Our platform utilizes a robust machine learning model trained on a vast dataset of symptoms and diseases. By inputting symptoms, our system generates accurate predictions about potential illnesses, enabling users to make informed health decisions.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Future Enhancements</h3>
+      <p>We aim to enhance our system by:</p>
+      <ul>
+          <li>Developing a mobile app using <strong>React Native</strong></li>
+          <li>Integrating <strong>Generative AI</strong> for advanced health predictions</li>
+          <li>Adding messaging features using <strong>Appwrite & Twilio</strong> for better patient-doctor communication</li>
+      </ul>
+    </div>
+
+    <div class="feature-box text-center">
+      <h3>Join Us on this Journey</h3>
+      <p>We invite you to explore our platforms and take control of your health journey.</p>
+      <div class="mt-3">
+        <a href="/predict" class="btn btn-primary me-2">
+          <i class="fas fa-robot me-1"></i>Try AI Diagnosis
+        </a>
+        <a href="/dashboard" class="btn btn-outline-primary">
+          <i class="fas fa-user-md me-1"></i>Patient Portal
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a class="btn btn-secondary" href="/">
+        <i class="fas fa-arrow-left me-1"></i>Back to Home
+      </a>
+    </div>
+  </div>
+
+  {% include "hospital/footer.html" %}
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>
