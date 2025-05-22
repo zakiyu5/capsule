@@ -3,5 +3,5 @@ django-widget-tweaks==1.4.8
 gunicorn==20.1.0
 whitenoise==6.5.0
 xhtml2pdf==0.2.8
-reportlab==4.1.0
-Pillow==10.3.0  # For image support
+reportlab==3.6.12  # Specific compatible version
+Pillow==9.5.0      # Required for image support
